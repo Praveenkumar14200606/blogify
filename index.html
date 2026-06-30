@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blogify — Where Ideas Come Alive</title>
+  <meta name="description" content="Blogify is a modern blogging platform where writers share ideas, stories, and knowledge with the world." />
+  <meta property="og:title" content="Blogify — Where Ideas Come Alive" />
+  <meta property="og:description" content="A modern blogging platform for creators." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-gradient-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand" id="nav-brand-btn">
+        <div class="brand-icon">✦</div>
+        <span class="brand-text">Blogify</span>
+      </a>
+      <div class="nav-search" id="nav-search-area">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off" />
+        </div>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <button class="btn btn-ghost" id="btn-login">Sign In</button>
+        <button class="btn btn-primary" id="btn-register">Get Started</button>
+      </div>
+      <div class="nav-user" id="nav-user" style="display:none;">
+        <button class="btn btn-primary icon-btn" id="btn-new-post">
+          <span>✏️</span> Write
+        </button>
+        <div class="user-menu-wrap">
+          <button class="user-avatar-btn" id="user-avatar-btn">
+            <img id="nav-avatar" src="" alt="Avatar" class="nav-avatar-img" />
+            <span id="nav-username"></span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="user-dropdown" id="user-dropdown">
+            <a href="#" id="dd-my-posts">📝 My Posts</a>
+            <a href="#" id="dd-profile">👤 Profile</a>
+            <hr />
+            <a href="#" id="dd-logout" class="danger">🚪 Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <main id="app">
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page active">
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-badge">✦ A space for thinkers</div>
+          <h1 class="hero-title">
+            Where <em>Ideas</em><br/>Come Alive
+          </h1>
+          <p class="hero-subtitle">
+            Discover stories, thinking, and expertise from writers on any topic. 
+            Write your first post — it only takes a minute.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" id="hero-start-btn">Start Writing Free</button>
+            <button class="btn btn-ghost btn-lg" id="hero-explore-btn">Explore Posts ↓</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span id="stat-posts">0</span><small>Posts</small></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span id="stat-authors">0</span><small>Authors</small></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span id="stat-comments">0</span><small>Comments</small></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="hero-card card-1">
+              <div class="hc-cat">Technology</div>
+              <div class="hc-title">The Future of AI</div>
+              <div class="hc-meta">✦ 12 min read</div>
+            </div>
+            <div class="hero-card card-2">
+              <div class="hc-cat">Design</div>
+              <div class="hc-title">Principles of Modern UI</div>
+              <div class="hc-meta">✦ 8 min read</div>
+            </div>
+            <div class="hero-card card-3">
+              <div class="hc-cat">Science</div>
+              <div class="hc-title">Exploring the Cosmos</div>
+              <div class="hc-meta">✦ 15 min read</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Bar -->
+      <div class="categories-bar" id="categories-bar">
+        <div class="categories-scroll" id="categories-scroll">
+          <button class="cat-pill active" data-category="">All Posts</button>
+        </div>
+      </div>
+
+      <!-- Posts Grid -->
+      <div class="posts-section">
+        <div class="section-header">
+          <h2 class="section-title" id="section-title">Latest Posts</h2>
+          <div class="sort-controls">
+            <button class="sort-btn active" data-sort="newest">Newest</button>
+          </div>
+        </div>
+        <div class="posts-grid" id="posts-grid">
+          <!-- Post cards injected by JS -->
+        </div>
+        <div class="empty-state" id="empty-state" style="display:none;">
+          <div class="empty-icon">📭</div>
+          <h3>No posts found</h3>
+          <p>Be the first to write something amazing!</p>
+          <button class="btn btn-primary" id="empty-write-btn">Start Writing</button>
+        </div>
+        <div class="load-more-wrap" id="load-more-wrap" style="display:none;">
+          <button class="btn btn-ghost btn-lg" id="btn-load-more">Load More Posts</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- POST DETAIL PAGE -->
+    <section id="page-post" class="page" style="display:none;">
+      <div class="post-detail-wrap" id="post-detail-wrap">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- EDITOR PAGE -->
+    <section id="page-editor" class="page" style="display:none;">
+      <div class="editor-wrap">
+        <div class="editor-header">
+          <button class="btn btn-ghost" id="editor-back-btn">← Back</button>
+          <div class="editor-actions">
+            <button class="btn btn-ghost" id="btn-save-draft">Save Draft</button>
+            <button class="btn btn-primary" id="btn-publish">Publish Post</button>
+          </div>
+        </div>
+        <div class="editor-container">
+          <div class="editor-meta">
+            <select class="input-field" id="post-category" style="max-width:200px;">
+              <option value="General">General</option>
+              <option value="Technology">Technology</option>
+              <option value="Science">Science</option>
+              <option value="Design">Design</option>
+              <option value="Business">Business</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Health">Health</option>
+              <option value="Travel">Travel</option>
+              <option value="Food">Food</option>
+              <option value="Education">Education</option>
+              <option value="Culture">Culture</option>
+              <option value="Politics">Politics</option>
+            </select>
+            <input type="text" class="input-field" id="post-tags" placeholder="Tags (comma separated)" style="flex:1;" />
+            <input type="text" class="input-field" id="post-cover" placeholder="Cover image URL (optional)" style="flex:2;" />
+          </div>
+          <input type="text" id="post-title-input" class="editor-title-input" placeholder="Your Post Title..." />
+          <div class="editor-toolbar">
+            <button class="toolbar-btn" title="Bold" onclick="formatText('bold')"><b>B</b></button>
+            <button class="toolbar-btn" title="Italic" onclick="formatText('italic')"><i>I</i></button>
+            <button class="toolbar-btn" title="Underline" onclick="formatText('underline')"><u>U</u></button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" title="H1" onclick="formatText('h1')">H1</button>
+            <button class="toolbar-btn" title="H2" onclick="formatText('h2')">H2</button>
+            <button class="toolbar-btn" title="Quote" onclick="formatText('quote')">❝</button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" title="Bullet List" onclick="formatText('ul')">≡</button>
+            <button class="toolbar-btn" title="Code" onclick="formatText('code')">{ }</button>
+            <button class="toolbar-btn" title="Link" onclick="formatText('link')">🔗</button>
+          </div>
+          <div id="post-content-editor" class="content-editor" contenteditable="true" 
+               data-placeholder="Tell your story..."></div>
+        </div>
+        <input type="hidden" id="editing-post-id" value="" />
+      </div>
+    </section>
+
+    <!-- MY POSTS PAGE -->
+    <section id="page-my-posts" class="page" style="display:none;">
+      <div class="my-posts-wrap">
+        <div class="page-header">
+          <h1>My Posts</h1>
+          <button class="btn btn-primary" id="my-posts-new-btn">✏️ New Post</button>
+        </div>
+        <div class="my-posts-list" id="my-posts-list">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE PAGE -->
+    <section id="page-profile" class="page" style="display:none;">
+      <div class="profile-wrap" id="profile-wrap">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon">✦</span>
+        <span>Blogify</span>
+      </div>
+      <p>© 2024 Blogify. Built with ❤️ for writers everywhere.</p>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
